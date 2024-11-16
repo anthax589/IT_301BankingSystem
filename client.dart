@@ -1,3 +1,4 @@
+
 import 'customerDetails.dart';
  class employee extends Customerdetails{
   double _balance  = 0.0;
@@ -11,3 +12,4 @@ import 'customerDetails.dart';
      return _balance;
    }
  }
+
