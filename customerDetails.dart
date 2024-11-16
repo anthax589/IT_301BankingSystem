@@ -11,7 +11,9 @@ class Customerdetails {
 
   String role;
 
-  Customerdetails(this.id, this.name, this.username, this.password, this.role);
+  double balance = 0.0;
+
+  Customerdetails(this.id, this.name, this.username, this.password, this.role ,this.balance);
    
    void setID(int id){
      this.id = id;
@@ -27,5 +29,8 @@ class Customerdetails {
     }
     void setRole(String role){
       this.role = role;
+    }
+    void setBalance(double balance){
+      this.balance = balance;
     }
 }
