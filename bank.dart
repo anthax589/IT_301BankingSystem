@@ -1,7 +1,6 @@
 // import 'dart:io';
 import 'dart:io';
 import 'customerDetails.dart';
-import 'employee.dart';
 List<String> costumerDetail = [];
 List<String> employeeDetail = [];
 const String employeeFileName = "Employee.txt";
