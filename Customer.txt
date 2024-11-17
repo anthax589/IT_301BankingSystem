@@ -1,1 +1,2 @@
-1|Jaymar|marix|787898|client|10.0
+1|Recardo|cards|123|customer|100.0
+2|Prince|negga|gegatron|customer|200.0

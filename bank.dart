@@ -145,8 +145,23 @@ class Bank {
   void deposit(Customerdetails customer) {
     stdout.write("Enter amount to deposit: ");
     double amount = double.parse(stdin.readLineSync()!);
-    customer.setBalance(amount); // Add to customer's balance
-    stdout.write("Amount deposited successfully\n");
+    customer.setBalance(customer.balance + amount); // Add to customer's balance
+    print("Amount deposited successfully");
+    // Update the customer data in the file
+    File file = File(customerFileName);
+    List<String> lines = file.readAsLinesSync();
+    List<String> updatedLines = [];
+
+    for (String line in lines) {
+      List<String> user = line.split("|");
+      if (int.parse(user[0]) == customer.id) {
+        updatedLines.add("${customer.id}|${customer.name}|${customer.username}|${customer.password}|${customer.role}|${customer.balance}");
+      } else {
+        updatedLines.add(line);
+      }
+    }
+
+    file.writeAsStringSync(updatedLines.join('\n'));
   }
 
   // Check balance function for customers
@@ -161,8 +176,23 @@ class Bank {
     if (amount > customer.balance) {
       print("Insufficient balance");
     } else {
-      customer.setBalance(-amount); // Deduct from customer's balance
+      customer.setBalance(customer.balance - amount); // Deduct from customer's balance
       print("Amount withdrawn successfully");
+      // Update the customer data in the file
+      File file = File(customerFileName);
+      List<String> lines = file.readAsLinesSync();
+      List<String> updatedLines = [];
+
+      for (String line in lines) {
+        List<String> user = line.split("|");
+        if (int.parse(user[0]) == customer.id) {
+          updatedLines.add("${customer.id}|${customer.name}|${customer.username}|${customer.password}|${customer.role}|${customer.balance}");
+        } else {
+          updatedLines.add(line);
+        }
+      }
+
+      file.writeAsStringSync(updatedLines.join('\n'));
     }
   }
 
@@ -201,7 +231,8 @@ class Bank {
         updateEmployee();
         break;
         case 7:
-        print("Exit");
+        print("Exiting...");
+        verification();
         break;
       default:
         print("Invalid choice");
