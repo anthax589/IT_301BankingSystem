@@ -104,6 +104,7 @@ class Bank {
 
   // Customer dashboard after successful login
   void customerDashboard(List<String> user) {
+    while (true) {
     Customerdetails customer = Customerdetails(
       int.parse(user[0]),
       user[1],
@@ -113,7 +114,7 @@ class Bank {
       double.parse(user[5])
     );
     print("\nCustomer Dashboard");
-    print("Welcome ${user[1]}");
+    print("Welcome ${user[1]}!");
     print("1. Deposit");
     print("2. Withdraw");
     print("3. Check Balance");
@@ -138,8 +139,8 @@ class Bank {
         print("Invalid choice");
         break;
     }
+   }
   }
-
   // Deposit function for customers
   void deposit(Customerdetails customer) {
     stdout.write("Enter amount to deposit: ");
@@ -167,13 +168,16 @@ class Bank {
 
   // Employee dashboard after successful login
   void employeeDashboard(List<String> user,) {
+    while (true) {
     print("\nEmployee Dashboard");
     print("Welcome ${user[1]}");
     print("1. Add Customer");
     print("2. Delete Customer");
     print("3. Update Customer");
     print("4. Add Employee");
-    print("5. Exit");
+    print("5. Delete Employee");
+    print("6. Update Employee");
+    print("7. Exit");
     stdout.write("Enter your choice: ");
     int choice = int.parse(stdin.readLineSync()!);
 
@@ -191,14 +195,20 @@ class Bank {
         addEmployee();
         break;
       case 5:
+        deleteEmployee();
+        break;
+        case 6:
+        updateEmployee();
+        break;
+        case 7:
         print("Exit");
         break;
       default:
         print("Invalid choice");
         break;
     }
+   }
   }
-
   // Function to add a new customer
   void addCustomer() {
     File file = File(customerFileName);
@@ -286,9 +296,58 @@ class Bank {
     String role = stdin.readLineSync()!;
     stdout.write("Enter employee balance: ");
     double balance = double.parse(stdin.readLineSync()!);
-
     // Append the new employee data to the file
     file.writeAsStringSync("$id|$name|$username|$password|$role|$balance\n", mode: FileMode.append);
     print("Employee added successfully");
   }
+  void deleteEmployee() {
+    stdout.write("Enter employee id: ");
+    int id = int.parse(stdin.readLineSync()!);
+    File file = File(employeeFileName);
+    List<String> lines = file.readAsLinesSync();
+    List<String> updatedLines = [];
+
+    for (String line in lines) {
+      List<String> user = line.split("|");
+      if (int.parse(user[0]) != id) {
+        updatedLines.add(line); // Keep all lines except the deleted one
+      }
+    }
+
+    file.writeAsStringSync(updatedLines.join('\n'));
+    print("Employee deleted successfully");
+  }
+
+  void updateEmployee() {
+    stdout.write("Enter employee id: ");
+    int id = int.parse(stdin.readLineSync()!);
+    stdout.write("Enter employee name: ");
+    String name = stdin.readLineSync()!;
+    stdout.write("Enter employee username: ");
+    String username = stdin.readLineSync()!;
+    stdout.write("Enter employee password: ");
+    String password = stdin.readLineSync()!;
+    stdout.write("Enter employee role: ");
+    String role = stdin.readLineSync()!;
+    stdout.write("Enter employee balance: ");
+    double balance = double.parse(stdin.readLineSync()!);
+
+    File file = File(employeeFileName);
+    List<String> lines = file.readAsLinesSync();
+    List<String> updatedLines = [];
+
+    for (String line in lines) {
+      List<String> user = line.split("|");
+      if (int.parse(user[0]) == id) {
+        updatedLines.add("$id|$name|$username|$password|$role|$balance"); // Update this employee's data
+      } else {
+        updatedLines.add(line);
+      }
+    }
+
+    file.writeAsStringSync(updatedLines.join('\n'));
+    print("Employee updated successfully");
+  }
+  
 }
+
