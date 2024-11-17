@@ -1,1 +1,2 @@
-1,Jaymar,AehtherBlaze,787898,customer,100.0
+1|Jaymar|marix|787898|client|10.0
+2|Josh|josh123|123|customer|100.0

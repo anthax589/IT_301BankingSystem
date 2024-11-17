@@ -3,6 +3,7 @@ import 'bank.dart';
 Bank bank = Bank();
 void main() {
    while (true) {
+   bank.setData();
    print("Banking System");
     print("1.Login");
     print("2.Exit");
@@ -13,7 +14,7 @@ void main() {
           bank.verification();
         break;
       case 2:
-        print("Exiting...");
+          print("Thank you for using our service");
         break;
       default:
         print("Invalid choice");
@@ -21,10 +22,3 @@ void main() {
     }
   }
 }  
-void clear(){
-    if (Platform.isWindows){
-        print(Process.runSync("cls", [], runInShell: true).stdout);
-    } else {
-        print(Process.runSync("clear", [], runInShell: true).stdout);
-}
-}
